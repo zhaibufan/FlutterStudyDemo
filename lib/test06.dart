@@ -1,65 +1,62 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(new MyWidget());
+void main() => runApp(MyApp());
 
-class MyWidget extends StatefulWidget {
-  final int initValue;
-
-  const MyWidget({Key key, this.initValue: 0});
-
-  @override
-  State<StatefulWidget> createState() => new MyState();
-}
-
-class MyState extends State<MyWidget> {
-  int counter;
-
-  @override
-  void initState() {
-    super.initState();
-    counter = widget.initValue;
-  }
-
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      body: new Center(
-        child: FlatButton(
-          child: Text('$counter'),
-          onPressed: () => setState(() => ++counter),
+    return MaterialApp(
+      title: 'Named Routes Demo',
+      // Start the app with the "/" named route. In our case, the app will start
+      // on the FirstScreen Widget
+      initialRoute: '/',
+      routes: {
+        // When we navigate to the "/" route, build the FirstScreen Widget
+        '/': (context) => FirstScreen(),
+        // When we navigate to the "/second" route, build the SecondScreen Widget
+        '/second': (context) => SecondScreen(),
+      },
+    );
+  }
+}
+
+class FirstScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('First Screen'),
+      ),
+      body: Center(
+        child: RaisedButton(
+          child: Text('Launch screen'),
+          onPressed: () {
+            // Navigate to the second screen using a named route
+            Navigator.pushNamed(context, '/second');
+          },
         ),
       ),
     );
   }
+}
 
+class SecondScreen extends StatelessWidget {
   @override
-  void didUpdateWidget(MyWidget oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    print("didUpdateWidget");
-  }
-
-  @override
-  void deactivate() {
-    super.deactivate();
-    print("deactivate");
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    print("dispose");
-  }
-
-  @override
-  void reassemble() {
-    super.reassemble();
-    print("reassemble");
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    print("didChangeDependencies");
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Second Screen"),
+      ),
+      body: Center(
+        child: RaisedButton(
+          onPressed: () {
+            // Navigate back to the first screen by popping the current route
+            // off the stack
+            Navigator.pop(context);
+          },
+          child: Text('Go back!'),
+        ),
+      ),
+    );
   }
 }
