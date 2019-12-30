@@ -8,7 +8,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return new MaterialApp(
       title: '路由管理',
-      home: new FirstPager(),
+//      home: new FirstPager(),
+      home: RouterTestRoute(),
     );
   }
 }
@@ -37,7 +38,59 @@ class SecondPager extends StatelessWidget {
         title: new Text('SecondPager'),
       ),
       body: new Center(
-        child: new RaisedButton(onPressed: () => Navigator.pop(context)),
+        child: new RaisedButton(onPressed: () {return Navigator.pop(context);}),
+      ),
+    );
+  }
+}
+
+class RouterTestRoute extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('Router'),
+        ),
+        body: Center(
+          child: RaisedButton(
+            onPressed: () async {
+              var result = await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => TipRoute(text: "我是传入的数据")));
+              //输出`TipRoute`路由返回结果
+              print("路由返回值: $result");
+            },
+            child: Text('打开提示页'),
+          ),
+        ));
+  }
+}
+
+class TipRoute extends StatelessWidget {
+  final String text;
+
+  TipRoute({Key key, @required this.text}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      appBar: AppBar(
+        title: Text('提示'),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(15),
+        child: Center(
+          child: new Column(
+            children: <Widget>[
+              Text(text),
+              RaisedButton(
+                child: new Text('返回'),
+                onPressed: () => Navigator.pop(context, '我是返回值'),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
