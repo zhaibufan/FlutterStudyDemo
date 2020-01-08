@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// flutter路由管理
+/// flutter路由管理：非路由命名
 void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {

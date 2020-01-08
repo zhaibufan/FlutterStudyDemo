@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+///flutter路由管理：路由命名
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -7,8 +8,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Named Routes Demo',
-      // Start the app with the "/" named route. In our case, the app will start
-      // on the FirstScreen Widget
       initialRoute: '/',
       routes: {
         // When we navigate to the "/" route, build the FirstScreen Widget
