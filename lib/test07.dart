@@ -46,6 +46,7 @@ class GenericWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     String routeName = settings.name;
     print("routeName = $routeName");
+    debugPrint("routeName = $routeName");
     return new Scaffold(
       appBar: AppBar(
         title: Text('通用页面'),
